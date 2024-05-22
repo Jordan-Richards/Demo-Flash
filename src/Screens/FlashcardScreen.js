@@ -22,7 +22,32 @@ const FlashcardScreen = () => {
     { id: 8, front: 'Applied behavior analysis', back: 'A science for control freaks.' },
     { id: 9, front: 'Generalization probe', back: 'Seeing if you can do things, before we teach you.' },
     { id: 10, front: 'Chaining', back: 'Getting your shit together.' },
-  ];
+    { id: 11, front: 'Accuracy of measurement', back: 'When someone calls you a dick, and you are.' },
+    { id: 12, front: 'Antecedent control', back: 'The thing your mother in law has over you.' },
+    { id: 13, front: 'Carry over effects', back: 'What you bring to your next relationship.' },
+    { id: 14, front: 'Discriminated operant', back: 'Fun fact, dressing for a nudist colony visit is different than dressing for the library.' },
+    { id: 15, front: 'Escape behavior', back: 'If you\'re using cards, put them down. If you\'re using a phone press the "home" button.' },
+    { id: 16, front: 'Extinction', back: '(intentionally leave blank)' },
+    { id: 17, front: 'Functional analysis', back: 'Pissing you off for your own benefit.' },
+    { id: 18, front: 'Generalization across subjects', back: 'Orgies' },
+    { id: 19, front: 'Incomplete stimulus control', back: 'When behaviors tend to start but they don\'t get' },
+    { id: 20, front: 'Intermittent Reinforcement', back: 'Reasons she doesn\'t leave him.' },
+    { id: 21, front: 'Latency', back: '___________________________________________________________________________________________ (get it?).' },
+    { id: 22, front: 'Mixed schedule of reinforcement', back: 'I don\'t know what the fuck is going on.' },
+    { id: 23, front: 'Motivation strategy', back: 'Giving a shit; a plan. Plowing a field of fucks.' },
+    { id: 24, front: 'Outcome goal', back: 'The thing you want to get by doing the thing you want to do to get the thing you want.' },
+    { id: 25, front: 'Overcorrection', back: 'Mischief managed.' },
+    { id: 26, front: 'Prompt fading', back: 'Losing your wingman after your engagement.' },
+    { id: 27, front: 'Relational frame theory', back: 'Derived stimulus relations are icky. This helps un ick them.' },
+    { id: 28, front: 'Response Block', back: 'Cock block.' },
+    { id: 29, front: 'Response generalization', back: 'Putting your fingers in a bowling ball: putting your fingers in an electrical outlet.' },
+    { id: 30, front: 'Response priming', back: 'The opposite of response choking.' },
+    { id: 31, front: 'Self-administered reinforcement', back: 'Going to the store to eat a candy bar. Get your mind out of the gutter.' },
+    { id: 32, front: 'Short-circuiting the contingency', back: 'Drinking beer before you go to the gym.' },
+    { id: 33, front: 'Tandem schedule of reinforcement', back: 'An expected but untold honey-do list.' },
+    { id: 34, front: 'Voluntary behavior', back: 'LOL. right. It\'s called operant responding - and we only call it voluntary so you don\'t lose your world view and crumble into a nihilistic pile of human flesh.' }
+];
+
 
   const flipCard = () => {
     setIsFront(!isFront);
