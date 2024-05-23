@@ -22,7 +22,7 @@ const HomeScreen = () => {
   // State for logout modal visibility
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   // State for category selection
-  const [category, setCategory] = useState('Networking');
+  const [category, setCategory] = useState('Main');
   // State for card count selection
   const [cardCount, setCardCount] = useState(5);
   // State for randomization setting
@@ -156,7 +156,7 @@ const HomeScreen = () => {
           transparent={true}
           visible={logoutModalVisible}
           onRequestClose={() => setLogoutModalVisible(!logoutModalVisible)}
->
+        >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Are you sure you want to logout?</Text>
@@ -169,97 +169,84 @@ const HomeScreen = () => {
               >
                 <Text style={styles.textStyle}>Logout</Text>
               </TouchableOpacity>
-                              <TouchableOpacity
-                                style={[styles.button, styles.buttonCancel]}
-                                onPress={() => setLogoutModalVisible(!logoutModalVisible)}
-                              >
-                                <Text style={styles.textStyle}>Cancel</Text>
-                              </TouchableOpacity>
-                            </View>
-                          </View>
-                        </Modal>
-                      </ScrollView>
-                    </SafeAreaView>
-                  );
-                };
-  
-  const styles = StyleSheet.create({
-    // Container of the entire screen
-    container: {
-      flex: 1,
-      backgroundColor: '#fff', // white background color
-      paddingTop: Platform.OS === 'android' ? 25 : 0, // top padding for Android status bar
+              <TouchableOpacity
+                style={[styles.button, styles.buttonCancel]}
+                onPress={() => setLogoutModalVisible(!logoutModalVisible)}
+              >
+                <Text style={styles.textStyle}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff', // white background color
+    paddingTop: Platform.OS === 'android' ? 25 : 0, // top padding for Android status bar
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
+  header: {
+    flexDirection: 'row', // elements in a row
+    justifyContent: 'space-between', // space between elements
+    alignItems: 'center', // vertically centered
+    marginTop: 10, // top margin
+    marginBottom: 20, // bottom margin
+  },
+  headerText: {
+    fontSize: 18, // text size
+    fontWeight: 'bold', // font weight
+  },
+  title: {
+    fontSize: 22, // text size
+    fontWeight: 'bold', // font weight
+    textAlign: 'center', // centered text
+    marginVertical: 10, // vertical margin
+  },
+  card: {
+    flex: 1, // take up all available space
+    flexDirection: 'row', // elements in a row
+    justifyContent: "center", // center content
+    borderWidth: 1, // border width
+    borderColor: 'black', // border color
+    borderRadius: 5, // rounded corners
+    padding: 20, // padding inside the card
+    marginVertical: 10, // vertical margin for spacing between cards
+  },
+  cardContent: {
+    flex: 1, // take up all available space
+    justifyContent: 'center', // vertically centered
+    alignItems: 'center', // horizontally centered
+  },
+  cardTitle: {
+    fontSize: 18, // text size
+    fontWeight: 'bold', // font weight
+  },
+  cardSubtitle: {
+    fontSize: 14, // text size
+    textAlign: 'center', // center text
+  },
+  sectionTitleContainer: {
+    paddingVertical: 20, // vertical padding
+  },
+  sectionTitle: {
+    fontSize: 22, // text size
+    fontWeight: 'bold', // font weight
+    textAlign: 'center', // centered text
+  },
+  optionsContainer: {
+    flex: 1, // take up all available space
+    flexDirection: 'row', // elements in a row
+    justifyContent: 'space-around', // space around elements
+    flexWrap: 'wrap', // wrap elements to the next line
+    marginVertical: 10, // vertical margin for spacing
     },
-    // Style for the ScrollView to add horizontal margin
-    scrollView: {
-      marginHorizontal: 20,
-    },
-    // Header style for the top section of the screen
-    header: {
-      flexDirection: 'row', // elements in a row
-      justifyContent: 'space-between', // space between elements
-      alignItems: 'center', // vertically centered
-      marginTop: 10, // top margin
-      marginBottom: 20, // bottom margin
-    },
-    // Text style for the header text
-    headerText: {
-      fontSize: 18, // text size
-      fontWeight: 'bold', // font weight
-    },
-    // Style for the main title of the HomeScreen
-    title: {
-      fontSize: 22, // text size
-      fontWeight: 'bold', // font weight
-      textAlign: 'center', // centered text
-      marginVertical: 10, // vertical margin
-    },
-    // Style for any cards in the HomeScreen
-    card: {
-      flex: 1, // take up all available space
-      flexDirection: 'row', // elements in a row
-      justifyContent: "center", // center content
-      borderWidth: 1, // border width
-      borderColor: 'black', // border color
-      borderRadius: 5, // rounded corners
-      padding: 20, // padding inside the card
-      marginVertical: 10, // vertical margin for spacing between cards
-    },
-    // Content within the card
-    cardContent: {
-      flex: 1, // take up all available space
-      justifyContent: 'center', // vertically centered
-      alignItems: 'center', // horizontally centered
-    },
-    // Title within the card
-    cardTitle: {
-      fontSize: 18, // text size
-      fontWeight: 'bold', // font weight
-    },
-    // Subtitle within the card
-    cardSubtitle: {
-      fontSize: 14, // text size
-      textAlign: 'center', // center text
-    },
-    // Style for the section titles in the HomeScreen
-    sectionTitleContainer: {
-      paddingVertical: 20, // vertical padding
-    },
-    // Style for the section titles
-    sectionTitle: {
-      fontSize: 22, // text size
-      fontWeight: 'bold', // font weight
-      textAlign: 'center', // centered text
-    },
-    // Container for the options/buttons at the bottom of the HomeScreen
-    optionsContainer: {
-      flex: 1, // take up all available space
-      flexDirection: 'row', // elements in a row
-      justifyContent: 'space-around', // space around elements
-      flexWrap: 'wrap', // wrap elements to the next line
-      marginVertical: 10, // vertical margin for spacing
-    },
-    // Style for each option card/button
     optionCard: {
       width: '45%', // width relative to screen size
       borderWidth: 1, // border width
@@ -277,13 +264,11 @@ const HomeScreen = () => {
       borderColor: 'black',
       borderWidth: 2,
     },
-    // Style for text on buttons
     buttonText: {
       color: 'black', // text color
       fontWeight: 'bold', // font weight
       textAlign: 'center', // centered text
     },
-    // Style for buttons that trigger an option
     OptionButtons: {
       minWidth: 120, // minimum width
       minHeight: 40, // minimum height
@@ -294,14 +279,12 @@ const HomeScreen = () => {
       paddingVertical: 5, // vertical padding
       borderRadius: 5, // rounded corners
     },
-    // Style for the account button in the header
     accountButton: {
       padding: 10, // padding
       borderRadius: 50, // rounded corners for a circular shape
       borderColor: 'black', // border color
       borderWidth: 2, // border width
     },
-    // Modal presentation styles
     centeredView: {
       flex: 1,
       justifyContent: 'center',
@@ -317,8 +300,8 @@ const HomeScreen = () => {
       alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
-          width: 0,
-          height: 2,
+        width: 0,
+        height: 2,
       },
       shadowOpacity: 0.25,
       shadowRadius: 4,
