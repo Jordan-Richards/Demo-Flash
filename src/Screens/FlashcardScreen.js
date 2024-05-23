@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, Button, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Main component for the Flashcard screen
-const FlashcardScreen = () => {
+const FlashcardScreen = ({ route }) => {
+  const { category, cardCount, randomize } = route.params;
   const navigation = useNavigation();
   const [flashcardIndex, setFlashcardIndex] = useState(0);
   const [isFront, setIsFront] = useState(true);
@@ -46,8 +47,22 @@ const FlashcardScreen = () => {
     { id: 32, front: 'Short-circuiting the contingency', back: 'Drinking beer before you go to the gym.' },
     { id: 33, front: 'Tandem schedule of reinforcement', back: 'An expected but untold honey-do list.' },
     { id: 34, front: 'Voluntary behavior', back: 'LOL. right. It\'s called operant responding - and we only call it voluntary so you don\'t lose your world view and crumble into a nihilistic pile of human flesh.' }
-];
+  ];
 
+  useEffect(() => {
+    const saveSession = async () => {
+      try {
+        const storedSessions = await AsyncStorage.getItem('sessions');
+        const sessions = storedSessions ? JSON.parse(storedSessions) : [];
+        const newSession = { category, cardCount, randomize };
+        sessions.push(newSession);
+        await AsyncStorage.setItem('sessions', JSON.stringify(sessions));
+      } catch (error) {
+        console.error('Error saving session:', error);
+      }
+    };
+    saveSession();
+  }, [category, cardCount, randomize]);
 
   const flipCard = () => {
     setIsFront(!isFront);
@@ -260,3 +275,4 @@ const styles = StyleSheet.create({
 });
 
 export default FlashcardScreen;
+
