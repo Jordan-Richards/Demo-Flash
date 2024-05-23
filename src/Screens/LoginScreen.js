@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, Text, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import Constants from 'expo-constants';
-
-axios.defaults.baseURL = 'http://mock-api.com';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -53,9 +49,9 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       {/* Logo */}
+      <Text style={styles.title}>Welcome to</Text>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
       
-      <Text style={styles.title}>Welcome to FlashIT!</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -69,8 +65,12 @@ const LoginScreen = () => {
         value={loginPassword}
         onChangeText={setLoginPassword}
       />
-      <Button title="Log In" onPress={handleLogin} />
-      <Button title="Register a Free Account" onPress={openRegisterModal} />
+      <View style={styles.buttonContainer}>
+        <Button title="Log In" onPress={handleLogin} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Register a Free Account" onPress={openRegisterModal} />
+      </View>
 
       {/* Modal for Registration */}
       <Modal
@@ -100,8 +100,12 @@ const LoginScreen = () => {
               value={registerPassword}
               onChangeText={setRegisterPassword}
             />
-            <Button title="Register" onPress={handleRegister} />
-            <Button title="Close" onPress={closeRegisterModal} />
+            <View style={styles.buttonContainer}>
+              <Button title="Register" onPress={handleRegister} />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button title="Close" onPress={closeRegisterModal} />
+            </View>
           </View>
         </View>
       </Modal>
@@ -123,17 +127,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: '100%', 
-    marginVertical: 8, 
-    padding: 15, 
+    width: '80%',
+    marginVertical: 8,
+    padding: 10,
     borderWidth: 1,
     borderColor: '#000',
-    borderRadius: 5, 
-    fontSize: 16, 
+    borderRadius: 5,
+    fontSize: 16,
   },
   title: {
-    fontSize: 50,
+    fontSize: 30,
     marginBottom: 20,
+  },
+  buttonContainer: {
+    width: '80%',
+    marginVertical: 10,
   },
   centeredView: {
     flex: 1,
@@ -142,6 +150,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    width: '90%', // Adjust width for better visibility
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,

@@ -1,79 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Switch, StatusBar, useColorScheme, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { SafeAreaView, Text, StyleSheet, Switch, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-
-const lightTheme = {
-  backgroundColor: '#FFF', // White background for light mode
-  textColor: '#000'        // Black text for light mode
-};
-
-const darkTheme = {
-  backgroundColor: '#333', // Dark gray background for dark mode
-  textColor: '#FFF'        // White text for dark mode
-};
+import { useTheme, lightTheme, darkTheme } from '../Components/themeContext';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
-  const systemScheme = useColorScheme();
-  const [isDarkMode, setIsDarkMode] = useState(systemScheme === 'dark');
-
-  useEffect(() => {
-    setIsDarkMode(systemScheme === 'dark');
-  }, [systemScheme]);
-
+  const { isDarkMode, toggleTheme } = useTheme();
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Feather name="arrow-left" size={24} color={theme.textColor} />
-        </TouchableOpacity>
-        <Text style={[styles.headerText, { color: theme.textColor }]}>Settings</Text>
-      </View>
-      <View style={styles.content}>
-        <Text style={{ color: theme.textColor, fontSize: 16, paddingVertical: 10 }}>Dark Mode</Text>
-        <Switch
-          trackColor={{ false: lightTheme.backgroundColor, true: darkTheme.backgroundColor }}
-          thumbColor={isDarkMode ? darkTheme.textColor : lightTheme.textColor}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={() => setIsDarkMode(!isDarkMode)}
-          value={isDarkMode}
-        />
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+      <Feather name="arrow-left" size={24} color={theme.textColor} />
+      </TouchableOpacity>
+      <Text style={[styles.text, { color: theme.textColor }]}>Dark Mode</Text>
+      <Switch
+        trackColor={{ false: theme.switchTrackColor, true: darkTheme.switchTrackColor }}
+        thumbColor={isDarkMode ? darkTheme.switchThumbColor : lightTheme.switchThumbColor}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleTheme}
+        value={isDarkMode}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight ? StatusBar.currentHeight + 20 : 40,
-    backgroundColor: '#fff', // Default background color, can be changed
-  },
-  header: {
-    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 10,
   },
   backButton: {
     marginRight: 10,
   },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
 });
 
-export default SettingsScreen; // Export statement
+export default SettingsScreen;
