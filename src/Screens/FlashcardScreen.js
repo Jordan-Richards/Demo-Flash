@@ -188,26 +188,31 @@ const FlashcardScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-      <Image source={require('../../assets/logo.png')} style={styles.logo} />
-
-      <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+     <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
         <Feather name="arrow-left" size={24} color={theme.textColor} />
         <Text style={[styles.backButtonText, { color: theme.textColor }]}>Back</Text>
       </TouchableOpacity>
+      <View style={styles.logoContainer}>
+      
+        <Image source={require('../../assets/logo.png')} style={styles.logo} />
+      </View>
+
+     
 
       <View style={styles.scoreContainer}>
         <Text style={[styles.scoreText, { color: theme.textColor }]}>Correct: {correctAnswers}</Text>
         <Text style={[styles.scoreText, { color: theme.textColor }]}>Incorrect: {incorrectAnswers}</Text>
       </View>
-      <Button title="Pause Session" onPress={handlePauseSession} color={theme.buttonBackground} />
+      <Button title="Pause Session" onPress={handlePauseSession} color={isDarkMode ? 'white' : theme.buttonBackground} />
+
       <Button title="Exit Session" onPress={handleExitSession} color="red" />
 
       <View style={styles.cardContainer}>
         {currentCard ? (
           <TouchableOpacity onPress={flipCard}>
             <ImageBackground source={require('../../assets/barbedwire img.jpeg')} style={[styles.card, { borderColor: theme.borderColor }]} imageStyle={styles.cardImage}>
-              <Text style={[styles.cardLabel, { color: theme.textColor }]}>{isFront ? 'Front' : 'Back'}</Text>
-              <View style={styles.cardTextContainer}>
+              <Text style={[styles.cardLabel, { color: isDarkMode ? 'black':'grey' }]}>{isFront ? 'Front' : 'Back'}</Text>
+              <View style={[styles.cardTextContainer, { backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.3)' }]}>
                 <Text style={[styles.cardText, { color: theme.textColor }]}>
                   {isFront ? currentCard.front : currentCard.back}
                 </Text>
@@ -248,11 +253,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 50,
   },
+  logoContainer: {
+    backgroundColor: 'lightgrey',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
   logo: {
     width: 200,
     height: 50,
     resizeMode: 'contain',
-    marginBottom: 20,
   },
   backButton: {
     flexDirection: 'row',
@@ -282,12 +292,14 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 300,
-    height: 350,
+    height: 330,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
     borderRadius: 10,
     overflow: 'hidden',
+    marginBottom: 20,
+    marginTop: 20,
   },
   cardImage: {
     borderRadius: 10,
@@ -305,11 +317,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    
   },
   cardText: {
     fontSize: 20,
     textAlign: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     paddingHorizontal: 10,
     borderRadius: 5,
   },
@@ -354,4 +366,3 @@ const styles = StyleSheet.create({
 });
 
 export default FlashcardScreen;
-
