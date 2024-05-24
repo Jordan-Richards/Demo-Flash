@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, Button, Image, ImageBackground } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, Image, ImageBackground, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -188,32 +188,26 @@ const FlashcardScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-     <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
         <Feather name="arrow-left" size={24} color={theme.textColor} />
         <Text style={[styles.backButtonText, { color: theme.textColor }]}>Back</Text>
       </TouchableOpacity>
       <View style={styles.logoContainer}>
-      
-        <Image source={require('../../assets/logo.png')} style={styles.logo} />
+        <Image source={require('../../assets/safemeds.png')} style={styles.logo} />
       </View>
-
-     
-
       <View style={styles.scoreContainer}>
         <Text style={[styles.scoreText, { color: theme.textColor }]}>Correct: {correctAnswers}</Text>
         <Text style={[styles.scoreText, { color: theme.textColor }]}>Incorrect: {incorrectAnswers}</Text>
       </View>
-      <Button title="Pause Session" onPress={handlePauseSession} color={isDarkMode ? 'white' : theme.buttonBackground} />
-
+      <Button title="Pause Session" onPress={handlePauseSession} color={isDarkMode ? 'white' : 'black'} />
       <Button title="Exit Session" onPress={handleExitSession} color="red" />
-
       <View style={styles.cardContainer}>
         {currentCard ? (
           <TouchableOpacity onPress={flipCard}>
             <ImageBackground source={require('../../assets/barbedwire img.jpeg')} style={[styles.card, { borderColor: theme.borderColor }]} imageStyle={styles.cardImage}>
-              <Text style={[styles.cardLabel, { color: isDarkMode ? 'black':'grey' }]}>{isFront ? 'Front' : 'Back'}</Text>
-              <View style={[styles.cardTextContainer, { backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.3)' }]}>
-                <Text style={[styles.cardText, { color: theme.textColor }]}>
+              <Text style={[styles.cardLabel, { color: isDarkMode ? 'black' : 'grey' }]}>{isFront ? 'Front' : 'Back'}</Text>
+              <View style={[styles.cardTextContainer, { backgroundColor: isDarkMode ? 'transparent' : 'rgba(255, 255, 255, 0.3)' }]}>
+                <Text style={[styles.cardText, { color: isDarkMode ? 'black' : theme.textColor }]}>
                   {isFront ? currentCard.front : currentCard.back}
                 </Text>
               </View>
@@ -223,14 +217,13 @@ const FlashcardScreen = ({ route }) => {
           <Text style={[styles.noCardsText, { color: theme.textColor }]}>No cards available</Text>
         )}
       </View>
-
       <View style={styles.buttonContainer}>
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={[styles.navButton, { backgroundColor: theme.buttonBackground }]} onPress={goToPreviousCard}>
-            <Text style={[styles.navButtonText, { color: theme.buttonText }]}>Previous</Text>
+          <TouchableOpacity style={[styles.navButton, { backgroundColor: isDarkMode ? 'darkgray' : 'lightgray' }]} onPress={goToPreviousCard}>
+            <Text style={[styles.navButtonText, { color: isDarkMode ? 'white' : 'black' }]}>Previous</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.navButton, { backgroundColor: theme.buttonBackground }]} onPress={goToNextCard}>
-            <Text style={[styles.navButtonText, { color: theme.buttonText }]}>Next</Text>
+          <TouchableOpacity style={[styles.navButton, { backgroundColor: isDarkMode ? 'darkgray' : 'lightgray' }]} onPress={goToNextCard}>
+            <Text style={[styles.navButtonText, { color: isDarkMode ? 'white' : 'black' }]}>Next</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonRow}>
@@ -317,7 +310,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    
   },
   cardText: {
     fontSize: 20,

@@ -12,7 +12,7 @@ import {
   StyleSheet,
   Platform,
   Switch,
-  Alert, // Import Alert
+  Alert,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -65,7 +65,7 @@ const HomeScreen = () => {
 
           <Text style={styles.title}>Let's start learning!</Text>
 
-          <View style={styles.card}>
+          <View style={[styles.card, styles.transparentBackground]}>
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>Join us for a fun learning experience!</Text>
               <Text style={styles.cardSubtitle}>Enjoy our NotSoSafe Flashcards! Customize your learning sessions and evaluate your progress.</Text>
@@ -240,6 +240,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 20,
     marginVertical: 10,
+  },
+  transparentBackground: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
   },
   cardContent: {
     justifyContent: 'center',

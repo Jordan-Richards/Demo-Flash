@@ -54,7 +54,7 @@ const LoginScreen = () => {
           <View style={styles.header}>
             <Text style={styles.title}>Welcome to</Text>
             <View style={styles.logoContainer}>
-              <Image source={require('../../assets/logo.png')} style={styles.logo} />
+              <Image source={require('../../assets/safemeds.png')} style={styles.logo} />
             </View>
           </View>
 

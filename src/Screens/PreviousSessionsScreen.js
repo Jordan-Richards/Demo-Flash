@@ -36,7 +36,7 @@ const PreviousSessionsScreen = () => {
   };
 
   const renderSessionItem = ({ item }) => (
-    <View style={[styles.sessionItem, { borderColor: theme.borderColor }]}>
+    <View style={[styles.sessionItem, { borderColor: 'red' }]}>
       <Text style={[styles.sessionText, { color: theme.textColor }]}>Category: {item.category}</Text>
       <Text style={[styles.sessionText, { color: theme.textColor }]}>Card Count: {item.cardCount}</Text>
       <Text style={[styles.sessionText, { color: theme.textColor }]}>Correct: {item.rightCount}</Text>
@@ -54,8 +54,8 @@ const PreviousSessionsScreen = () => {
       </TouchableOpacity>
 
       <Text style={[styles.title, { color: theme.textColor }]}>Previous Sessions</Text>
-      <TouchableOpacity style={[styles.clearAllButton, { backgroundColor: theme.buttonBackground }]} onPress={clearAllSessions}>
-        <Text style={[styles.clearAllButtonText, { color: theme.buttonText }]}>Clear All Sessions</Text>
+      <TouchableOpacity style={[styles.clearAllButton, { backgroundColor: 'red' }]} onPress={clearAllSessions}>
+        <Text style={[styles.clearAllButtonText, { color: 'white' }]}>Clear All Sessions</Text>
       </TouchableOpacity>
       <FlatList
         data={sessions}
