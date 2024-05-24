@@ -200,7 +200,7 @@ const FlashcardScreen = ({ route }) => {
         <Text style={[styles.scoreText, { color: theme.textColor }]}>Incorrect: {incorrectAnswers}</Text>
       </View>
       <Button title="Pause Session" onPress={handlePauseSession} color={isDarkMode ? 'white' : 'black'} />
-      <Button title="Exit Session" onPress={handleExitSession} color="#AA4A44" />
+      <Button title="Exit Session" onPress={handleExitSession} color="#AB232B" />
       <View style={styles.cardContainer}>
         {currentCard ? (
           <TouchableOpacity onPress={flipCard}>
@@ -230,7 +230,7 @@ const FlashcardScreen = ({ route }) => {
           <TouchableOpacity style={[styles.answerButton, styles.rightButton]} onPress={() => handleAnswer(true)}>
             <Text style={styles.answerButtonText}>Right</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.answerButton, { backgroundColor: '#AA4A44' }]} onPress={() => handleAnswer(false)}>
+          <TouchableOpacity style={[styles.answerButton, { backgroundColor: '#AB232B' }]} onPress={() => handleAnswer(false)}>
             <Text style={styles.answerButtonText}>Wrong</Text>
           </TouchableOpacity>
         </View>
