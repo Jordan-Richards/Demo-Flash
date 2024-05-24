@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     borderColor: '#000000', // Black border for modal input fields
     borderRadius: 5,
     fontSize: 16,
-    color: '#000000',
+    color: '#000000', // Black text color for modal input fields
   },
 });
 

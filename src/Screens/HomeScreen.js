@@ -17,6 +17,7 @@ import {
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import home1 from '../../assets/home1.jpeg'; // Correct import for the image
+import home12 from '../../assets/home12.jpeg'; // Correct import for the image
 
 const HomeScreen = () => {
   const [sessionModalVisible, setSessionModalVisible] = useState(false);
@@ -53,7 +54,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={home1} style={styles.backgroundImage}>
+      <ImageBackground source={home12} style={styles.backgroundImage}>
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.headerText}>Welcome back!</Text>
