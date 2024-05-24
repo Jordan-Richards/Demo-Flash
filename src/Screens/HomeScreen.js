@@ -6,8 +6,8 @@ import {
   Modal,
   Text,
   View,
+  ImageBackground,
   SafeAreaView,
-  ScrollView,
   TouchableOpacity,
   StyleSheet,
   Platform,
@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import home1 from '../../assets/home1.jpeg'; // Correct import for the image
 
 const HomeScreen = () => {
   const [sessionModalVisible, setSessionModalVisible] = useState(false);
@@ -52,140 +53,148 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Welcome back, user</Text>
-          <TouchableOpacity style={styles.accountButton} onPress={() => setLogoutModalVisible(true)}>
-            <Feather name="user" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
-
-        <Text style={styles.title}>Let's start learning!</Text>
-
-        <View style={styles.card}>
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>Join us for a fun learning experience!</Text>
-            <Text style={styles.cardSubtitle}>Choose a category and start a session.</Text>
-            <Feather name="activity" size={45} color="black" />
+      <ImageBackground source={home1} style={styles.backgroundImage}>
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Welcome back!</Text>
+            <TouchableOpacity style={styles.accountButton} onPress={() => setLogoutModalVisible(true)}>
+              <Feather name="user" size={24} color="black" />
+            </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={styles.sectionTitleContainer}>
-          <Text style={styles.sectionTitle}>Test your knowledge!</Text>
-        </View>
+          <Text style={styles.title}>Let's start learning!</Text>
 
-        <View style={styles.optionsContainer}>
-          <TouchableOpacity style={styles.optionCard} onPress={() => navigation.navigate('PreviousSessions')}>
-            <Feather style={styles.feather} name="clock" size={45} color="black" />
-            <Text style={styles.buttonText}>View previous sessions</Text>
-          </TouchableOpacity>
+          <View style={styles.card}>
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>Join us for a fun learning experience!</Text>
+              <Text style={styles.cardSubtitle}>Enjoy our NotSoSafe Flashcards! Customize your learning sessions and evaluate your progress.</Text>
+              <Feather name="activity" size={45} color="black" />
+            </View>
+          </View>
 
-          <TouchableOpacity style={styles.optionCard} onPress={resumeLastSession}>
-            <Feather style={styles.feather} name="play-circle" size={45} color="black" />
-            <Text style={styles.buttonText}>Resume session</Text>
-          </TouchableOpacity>
+          <View style={styles.sectionTitleContainer}>
+            <Text style={styles.sectionTitle}>Test your knowledge!</Text>
+            <TouchableOpacity
+              style={styles.start}
+              onPress={() => navigation.navigate('Flashcards', { category: 'Demo Deck', cardCount: 5 })}
+            >
+              <Text style={styles.buttonStart}>Jump Right In!</Text>
+            </TouchableOpacity>
+          </View>
 
-          <TouchableOpacity style={styles.optionCard} onPress={() => navigation.navigate('Settings')}>
-            <Feather name="settings" size={45} color="black" />
-            <Text style={styles.buttonText}>Settings</Text>
-          </TouchableOpacity>
+          <View style={styles.optionsContainer}>
+            <TouchableOpacity style={styles.optionCard} onPress={() => navigation.navigate('PreviousSessions')}>
+              <Feather style={styles.feather} name="clock" size={45} color="black" />
+              <Text style={styles.buttonText}>View previous sessions</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionCard} onPress={() => setSessionModalVisible(true)}>
-            <Feather style={styles.feather} name="settings" size={45} color="black" />
-            <Text style={styles.buttonText}>Set session details</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.optionCard} onPress={resumeLastSession}>
+              <Feather style={styles.feather} name="play-circle" size={45} color="black" />
+              <Text style={styles.buttonText}>Resume session</Text>
+            </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={sessionModalVisible}
-          onRequestClose={() => setSessionModalVisible(!sessionModalVisible)}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <TouchableOpacity style={styles.closeButton} onPress={() => setSessionModalVisible(!sessionModalVisible)}>
-                <Feather name="x" size={24} color="black" />
-              </TouchableOpacity>
-              <Text style={styles.modalTitle}>Set Session Details</Text>
-              <Text style={styles.modalText}>Category:</Text>
-              <Picker
-                selectedValue={category}
-                style={styles.picker}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
-                {['Main', 'Coming Soon!'].map((item) => (
-                  <Picker.Item key={item} label={item} value={item} />
-                ))}
-              </Picker>
+            <TouchableOpacity style={styles.optionCard} onPress={() => navigation.navigate('Settings')}>
+              <Feather name="settings" size={45} color="black" />
+              <Text style={styles.buttonText}>Settings</Text>
+            </TouchableOpacity>
 
-              <Text style={styles.modalText}>Number of Cards:</Text>
-              <Picker
-                selectedValue={cardCount}
-                style={styles.picker}
-                onValueChange={(itemValue) => setCardCount(itemValue)}
-              >
-                {[5, 10, 15, 20].map((number) => (
-                  <Picker.Item key={number} label={`${number} cards`} value={number} />
-                ))}
-              </Picker>
+            <TouchableOpacity style={styles.optionCard} onPress={() => setSessionModalVisible(true)}>
+              <Feather style={styles.feather} name="book-open" size={45} color="black" />
+              <Text style={styles.buttonText}>Set session details</Text>
+            </TouchableOpacity>
+          </View>
 
-              <View style={styles.switchContainer}>
-                <Text style={styles.modalText}>Randomize Cards:</Text>
-                <Switch
-                  style={styles.switch}
-                  trackColor={{ false: "#767577", true: "#81b0ff" }}
-                  thumbColor={randomize ? "#f5dd4b" : "#f4f3f4"}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={setRandomize}
-                  value={randomize}
-                />
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={sessionModalVisible}
+            onRequestClose={() => setSessionModalVisible(!sessionModalVisible)}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <TouchableOpacity style={styles.closeButton} onPress={() => setSessionModalVisible(!sessionModalVisible)}>
+                  <Feather name="x" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.modalTitle}>Set Session Details</Text>
+                <Text style={styles.modalText}>Category:</Text>
+                <Picker
+                  selectedValue={category}
+                  style={styles.picker}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
+                >
+                  {['Main', 'Coming Soon!'].map((item) => (
+                    <Picker.Item key={item} label={item} value={item} />
+                  ))}
+                </Picker>
+
+                <Text style={styles.modalText}>Number of Cards:</Text>
+                <Picker
+                  selectedValue={cardCount}
+                  style={styles.picker}
+                  onValueChange={(itemValue) => setCardCount(itemValue)}
+                >
+                  {[5, 10, 15, 20].map((number) => (
+                    <Picker.Item key={number} label={`${number} cards`} value={number} />
+                  ))}
+                </Picker>
+
+                <View style={styles.switchContainer}>
+                  <Text style={styles.modalText}>Randomize Cards:</Text>
+                  <Switch
+                    style={styles.switch}
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    thumbColor={randomize ? "#f5dd4b" : "#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={setRandomize}
+                    value={randomize}
+                  />
+                </View>
+
+                <TouchableOpacity
+                  style={[styles.button, styles.start]}
+                  onPress={startSession}
+                >
+                  <Text style={styles.textStyle}>Start Session</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonCancel]}
+                  onPress={() => setSessionModalVisible(!sessionModalVisible)}
+                >
+                  <Text style={styles.textStyle}>Cancel</Text>
+                </TouchableOpacity>
               </View>
-
-              <TouchableOpacity
-                style={[styles.button, styles.buttonStart]}
-                onPress={startSession}
-              >
-                <Text style={styles.textStyle}>Start Session</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => setSessionModalVisible(!sessionModalVisible)}
-              >
-                <Text style={styles.textStyle}>Cancel</Text>
-              </TouchableOpacity>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={logoutModalVisible}
-          onRequestClose={() => setLogoutModalVisible(!logoutModalVisible)}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Are you sure you want to logout?</Text>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonLogout]}
-                onPress={() => {
-                  setLogoutModalVisible(!logoutModalVisible);
-                  navigation.navigate('Login');
-                }}
-              >
-                <Text style={styles.textStyle}>Logout</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => setLogoutModalVisible(!logoutModalVisible)}
-              >
-                <Text style={styles.textStyle}>Cancel</Text>
-              </TouchableOpacity>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={logoutModalVisible}
+            onRequestClose={() => setLogoutModalVisible(!logoutModalVisible)}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Are you sure you want to logout?</Text>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonLogout]}
+                  onPress={() => {
+                    setLogoutModalVisible(!logoutModalVisible);
+                    navigation.navigate('Login');
+                  }}
+                >
+                  <Text style={styles.textStyle}>Logout</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonCancel]}
+                  onPress={() => setLogoutModalVisible(!logoutModalVisible)}
+                >
+                  <Text style={styles.textStyle}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
-      </ScrollView>
+          </Modal>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -193,18 +202,23 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
-  scrollView: {
-    marginHorizontal: 20,
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
   },
   headerText: {
     fontSize: 18,
@@ -218,8 +232,8 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 5,
@@ -227,40 +241,51 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   cardContent: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   cardSubtitle: {
     fontSize: 14,
     textAlign: 'center',
   },
   sectionTitleContainer: {
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   sectionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  start: {
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonStart: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
   optionsContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
-    marginVertical: 10,
   },
   optionCard: {
     width: '45%',
     borderWidth: 1,
     borderColor: '#000',
     borderRadius: 5,
-    padding: 20,
-    marginBottom: 20,
+    padding: 10,
+    marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'lightblue',
@@ -275,6 +300,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 14,
   },
   accountButton: {
     padding: 10,
@@ -286,7 +312,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 20,
   },
   modalView: {
     width: '80%',
@@ -304,6 +330,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  startButton: {
+    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 10,
+    width: '80%',
+  },
   closeButton: {
     alignSelf: 'flex-end',
   },
@@ -319,9 +352,6 @@ const styles = StyleSheet.create({
     elevation: 2,
     marginVertical: 5,
     width: '80%',
-  },
-  buttonStart: {
-    backgroundColor: '#2196F3',
   },
   buttonCancel: {
     backgroundColor: '#f44336',

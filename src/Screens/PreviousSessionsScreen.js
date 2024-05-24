@@ -16,7 +16,7 @@ const PreviousSessionsScreen = () => {
       try {
         const storedSessions = await AsyncStorage.getItem('completedSessions');
         const sessions = storedSessions ? JSON.parse(storedSessions) : [];
-        setSessions(sessions);
+        setSessions(sessions.reverse()); // Reverse the array to show the most recent sessions at the top
       } catch (error) {
         console.error('Error loading sessions:', error);
       }
